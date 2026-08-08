@@ -1,21 +1,11 @@
 
 [dependencies]
 aes-gcm-siv = "=0.11.1"
-: cargo audit
-
-[package]
-name = "secure-app"
-version = "0.1.0"
-edition = "2021"
-
 cargo vet init
-
 cargo install cargo-audit
 cargo audit
-
 aes-gcm-siv = "=0.11.1"
 aes-gcm-siv = "0.11"
-
 # Cargo.toml
 [package]
 name = "your-app"
