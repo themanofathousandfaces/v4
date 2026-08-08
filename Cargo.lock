@@ -16,49 +16,6 @@ Cargo.toml        @yourusername
 Cargo.lock        @yourusername
 .github/workflows/ @yourusername
 
-Mohsen Bagharpiri
-Require pull request reviews
-Require status checks to pass
-Require linear history
-Restrict who can push to matching branches
-Do not allow force pushes
-Do not allow deletions
-cargo install cargo-vetname: Rust CI
-
-on:
-  push:
-    branches: ["main"]
-  pull_request:
-
-permissions:
-  contents: read
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@11bd71f02bbeb416526e734547285653ad76f3f0
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@f5b1c8b4b4f7d2d7f1a7f0d0c6c9f3a3d2d0d9d7
-        with:
-          toolchain: stable
-          components: clippy, rustfmt
-
-      - name: Check lockfile consistency
-        run: cargo check --locked
-
-      - name: Format check
-        run: cargo fmt --check
-
-      - name: Clippy
-        run: cargo clippy --locked -- -D warnings
-
-      - name: Audit dependencies
-        run: cargo audit
-
 cargo vet init
 
 cargo install cargo-audit
