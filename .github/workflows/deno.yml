@@ -1,0 +1,67 @@
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read # عالی، همین را حفظ کن
+    steps:
+      - name: Checkout
+        uses: actions/checkout@11bd71f02bbeb416526e734547285653ad76f3f0
+      
+      - name: Setup Deno
+        uses: denoland/setup-deno@42ca2de708af26e881181e3edc617b010c9d4e1d # از SHA استفاده کن
+        with:
+          deno-version: v1.x
+
+      - name: Verify Formatting
+        run: deno fmt --check
+
+      - name: Run linter
+        run: deno lint
+
+      - name: Run tests
+        run: deno test -A # اگر تست‌ها به دسترسی خاصی نیاز دارند
+
+- uses: actions/checkout@11bd71f02bbeb416526e734547285653ad76f3f0 # SHA نسخه v4
+# Th- uses: actions/checkout@11bd71f02bbeb416526e734547285653ad76f3f0 # SHA نسخه v4
+is workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
+# This workflow will install Deno then run `deno lint` and `deno test`.
+# For more information see: https://github.com/denoland/setup-deno
+
+name: Deno
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v4
+
+      - name: Setup Deno
+        # uses: denoland/setup-deno@v1
+        uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31  # v1.1.2
+        with:
+          deno-version: v1.x
+
+      # Uncomment this step to verify the use of 'deno fmt' on each commit.
+      # - name: Verify formatting
+      #   run: deno fmt --check
+
+      - name: Run linter
+        run: deno lint
+
+      - name: Run tests
+        run: deno test -A
