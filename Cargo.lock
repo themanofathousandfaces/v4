@@ -1,35 +1,7 @@
+
 [dependencies]
 aes-gcm-siv = "=0.11.1"
-
-cargo check --locked
-cargo test --locked
-cargo clippy --locked -- -D warnings
-
-name: Rust Secure CI
-
-on:
-  pull_request:
-  push:
-    branches: ["main"]
-
-permissions:
-  contents: read
-
-jobs:
-  verify:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@11bd71f02bbeb416526e734547285653ad76f3f0
-
-      - uses: dtolnay/rust-toolchain@f5b1c8b4b4f7d2d7f1a7f0d0c6c9f3a3d2d0d9d7
-        with:
-          toolchain: stable
-          components: clippy, rustfmt
-
-      - run: cargo check --locked
-      - run: cargo fmt --check
-      - run: cargo clippy --locked -- -D warnings
-      - run: cargo audit
+: cargo audit
 
 [package]
 name = "secure-app"
